@@ -22,10 +22,11 @@ io.on('connection', (socket)=>{
     socket.emit('newMessage', generateMessage("Admin", "Welcome to the chat app"));
     socket.broadcast.emit('newMessage',generateMessage("Admin", "New user joined"));
 
-    socket.on('createMessage', (message)=>{
+    socket.on('createMessage', (message, callback)=>{
         console.log('create new message', message);
          //it is used to emmit an event to all the connections. // first arguemnt event name second argurment data.
         io.emit('newMessage',generateMessage(message.from, message.text));
+        callback('This is from server');
         /* socket.broadcast.emit('newMessage',{
             from : message.from,
             text : message.text,
