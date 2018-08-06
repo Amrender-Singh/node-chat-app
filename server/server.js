@@ -17,14 +17,14 @@ io.on('connection', (socket)=>{
     socket.on('disconnect', (socket)=>{
         console.log("Client disconnected");
     });
-    //it is used to emmit an event. // first arguemnt event name second argurment data.
-    socket.emit('newMessage',{
-        "from" : "amy@gs.com",
-        "text" : "hey how are you",
-        "createdAt" : 1245
-    });
-    socket.on('createMessage', (newEmail)=>{
-        console.log('create new message', newEmail);
+    socket.on('createMessage', (message)=>{
+        console.log('create new message', message);
+         //it is used to emmit an event to all the connections. // first arguemnt event name second argurment data.
+        io.emit('newMessage',{
+            from : message.from,
+            text : message.text,
+            createdAt : new Date().getTime()
+        });
     });
 });
 server.listen(port, ()=>{
